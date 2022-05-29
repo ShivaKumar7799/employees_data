@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import { createContext, useState } from 'react';
 import './App.css';
+import DataForm from './Components/Data Form/DataForm';
+import TableComponent from './Components/TableComponent/TableComponent';
+
+export const AppContext = createContext(null)
 
 function App() {
+  const [employeeData, setEmployeeData] = useState([]);
+  const [addFormData,setAddFormData] = useState({
+      firstName : "",
+      username : "",
+      dob : "",
+      phoneNumber : "",
+      email : "",
+      country : "",
+      state : "",
+      city : ""
+  })
+
+  const dataFormObject = {
+    employeeData : employeeData,
+    setEmployeeData : setEmployeeData,
+    addFormData : addFormData,
+    setAddFormData: setAddFormData
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value = {dataFormObject}>
+        <TableComponent />
+        <DataForm />
+    </AppContext.Provider>
   );
 }
 
